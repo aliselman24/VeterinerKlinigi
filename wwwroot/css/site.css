@@ -1,31 +1,282 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+﻿:root {
+    --clinic-ink: #172e26;
+    --clinic-muted: #51655d;
+    --clinic-green: #24654d;
+    --clinic-green-dark: #164735;
+    --clinic-surface: #f6f7f3;
+    --clinic-line: #dbe4dc;
+    --bs-link-color-rgb: 36, 101, 77;
+    --bs-link-hover-color-rgb: 22, 71, 53;
 }
 
 body {
-  margin-bottom: 60px;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    color: var(--clinic-ink);
+    background: var(--clinic-surface);
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.site-container {
+    max-width: 76rem;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.site-header {
+    background: #fff;
+    border-bottom: 1px solid var(--clinic-line);
+}
+
+.site-header .navbar {
+    min-height: 4.5rem;
+}
+
+.site-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: .65rem;
+    color: var(--clinic-ink);
+    font-weight: 700;
+    letter-spacing: -.03em;
+}
+
+.site-brand-mark {
+    display: inline-grid;
+    width: 1.9rem;
+    height: 1.9rem;
+    place-items: center;
+    border-radius: .55rem;
+    background: var(--clinic-green);
+}
+
+.site-brand-mark::before,
+.site-brand-mark::after {
+    content: "";
+    grid-area: 1 / 1;
+    width: .85rem;
+    height: .2rem;
+    border-radius: .1rem;
+    background: #fff;
+}
+
+.site-brand-mark::after {
+    transform: rotate(90deg);
+}
+
+.site-header .nav-link {
+    padding-inline: .85rem;
+    color: var(--clinic-muted);
+    font-weight: 600;
+}
+
+.site-header .nav-link:hover {
+    color: var(--clinic-ink);
+}
+
+.site-account-nav {
+    align-items: center;
+    gap: .35rem;
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--clinic-green);
+    --bs-btn-border-color: var(--clinic-green);
+    --bs-btn-hover-bg: var(--clinic-green-dark);
+    --bs-btn-hover-border-color: var(--clinic-green-dark);
+    --bs-btn-active-bg: var(--clinic-green-dark);
+    --bs-btn-active-border-color: var(--clinic-green-dark);
+    --bs-btn-focus-shadow-rgb: 36, 101, 77;
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--clinic-green-dark);
+    --bs-btn-border-color: #92ab9e;
+    --bs-btn-hover-bg: var(--clinic-green-dark);
+    --bs-btn-hover-border-color: var(--clinic-green-dark);
+    --bs-btn-active-bg: var(--clinic-green-dark);
+    --bs-btn-active-border-color: var(--clinic-green-dark);
+    --bs-btn-focus-shadow-rgb: 36, 101, 77;
+}
+
+.site-header .btn,
+.home-actions .btn {
+    border-radius: .65rem;
+    padding: .65rem .95rem;
+    font-weight: 600;
+}
+
+.skip-link {
+    position: absolute;
+    z-index: 2;
+    padding: .75rem 1rem;
+    background: #fff;
+}
+
+.site-main {
+    flex: 1 0 auto;
+    padding-block: clamp(2rem, 5vw, 4rem);
+}
+
+.site-footer {
+    border-top: 1px solid var(--clinic-line);
+    color: var(--clinic-muted);
+    background: #fff;
+}
+
+.site-footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem 2rem;
+    padding-block: 1.25rem;
+    font-size: .925rem;
+}
+
+.site-footer-inner strong {
+    color: var(--clinic-ink);
+}
+
+.home-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: stretch;
+    overflow: hidden;
+    border: 1px solid var(--clinic-line);
+    border-radius: 1.6rem;
+    background: #e8f1e9;
+}
+
+.home-hero-copy {
+    align-self: center;
+    padding: clamp(2rem, 5.1vw, 4.5rem);
+}
+
+.home-hero h1 {
+    margin: 0;
+    font-size: clamp(2.65rem, 5.15vw, 4.4rem);
+    font-weight: 750;
+    line-height: .99;
+    letter-spacing: -.075em;
+    text-wrap: balance;
+}
+
+.home-hero h1 span {
+    display: block;
+    color: var(--clinic-green);
+}
+
+.home-hero p {
+    max-width: 27rem;
+    margin: 1.35rem 0 0;
+    color: var(--clinic-muted);
+    font-size: clamp(1rem, 1.5vw, 1.175rem);
+    line-height: 1.65;
+}
+
+.home-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .65rem;
+    margin-top: 1.6rem;
+}
+
+.home-hero-photo {
+    position: relative;
+    min-height: clamp(20rem, 38vw, 31rem);
+    background: #d7e4db;
+}
+
+.home-hero-photo img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.home-modules {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.home-modules h2 {
+    margin-bottom: 1.15rem;
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -.045em;
+}
+
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.module-card {
+    padding: clamp(1.15rem, 2.5vw, 1.75rem);
+    border: 1px solid var(--clinic-line);
+    border-radius: 1rem;
+    background: #fff;
+}
+
+.module-card h3 {
+    margin-bottom: .45rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+.module-card p {
+    margin: 0;
+    color: var(--clinic-muted);
+    line-height: 1.55;
+}
+
+.account-card {
+    max-width: 31rem;
+    margin-inline: auto;
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+    border: 1px solid var(--clinic-line);
+    border-radius: 1.25rem;
+    background: #fff;
+}
+
+.account-card h1 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -.045em;
+}
+
+.account-card .account-switch {
+    margin: 1.25rem 0 .5rem;
+}
+
+.account-help {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem 1rem;
+}
+
+@media (max-width: 767.98px) {
+    .site-header .navbar-collapse {
+        padding-block: .65rem;
+    }
+
+    .site-header .nav-link {
+        padding-inline: 0;
+    }
+
+    .site-account-nav {
+        align-items: flex-start;
+    }
+
+    .home-hero,
+    .module-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-hero-photo {
+        min-height: 0;
+        aspect-ratio: 4 / 3;
+    }
 }

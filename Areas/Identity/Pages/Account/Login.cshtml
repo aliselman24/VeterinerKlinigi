@@ -1,0 +1,40 @@
+@page
+@model VeterinerKlinigi.Areas.Identity.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Giriş yap";
+}
+
+<section class="account-card" aria-labelledby="login-title">
+    <h1 id="login-title">Giriş yap</h1>
+    <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+        <div class="mb-3">
+            <label asp-for="Input.Email" class="form-label"></label>
+            <input asp-for="Input.Email" class="form-control" autocomplete="username" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Input.Password" class="form-label"></label>
+            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-check mb-3">
+            <input asp-for="Input.RememberMe" class="form-check-input" />
+            <label asp-for="Input.RememberMe" class="form-check-label"></label>
+        </div>
+
+        <button class="btn btn-primary w-100" type="submit">Giriş yap</button>
+    </form>
+    <p class="account-switch">Hesabın yok mu? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Hesap oluştur</a></p>
+    <div class="account-help">
+        <a asp-page="./ForgotPassword">Parolamı unuttum</a>
+        <a asp-page="./ResendEmailConfirmation">Doğrulama e-postasını yeniden gönder</a>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="/Views/Shared/_ValidationScriptsPartial.cshtml" />
+}

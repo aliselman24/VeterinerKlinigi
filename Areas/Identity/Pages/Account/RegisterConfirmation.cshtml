@@ -1,0 +1,14 @@
+@page
+@model VeterinerKlinigi.Areas.Identity.Pages.Account.RegisterConfirmationModel
+@{
+    ViewData["Title"] = "E-postanı doğrula";
+}
+
+<section class="account-card" aria-labelledby="confirmation-title">
+    <h1 id="confirmation-title">E-postanı doğrula</h1>
+    <p>Hesabın oluşturuldu. Giriş yapabilmek için e-posta adresini doğrula.</p>
+    @if (Model.ConfirmationLink is not null)
+    {
+        <a class="btn btn-primary" href="@Model.ConfirmationLink">E-postayı doğrula</a>
+    }
+</section>

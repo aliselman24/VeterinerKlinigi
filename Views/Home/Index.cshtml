@@ -1,8 +1,46 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Ana Sayfa";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="home-hero" aria-labelledby="home-title">
+    <div class="home-hero-copy">
+        <h1 id="home-title">Veteriner randevuları <span>ve sağlık takibi</span></h1>
+        <p>Evcil hayvanların randevularını, hasta kayıtlarını ve sağlık geçmişini tek yerden yönetmek için geliştirilen klinik sistemi.</p>
+
+        <div class="home-actions">
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Manage/Index">Hesabım</a>
+            }
+            else
+            {
+                <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register">Hesap oluştur</a>
+                <a class="btn btn-outline-primary" asp-area="Identity" asp-page="/Account/Login">Giriş yap</a>
+            }
+        </div>
+    </div>
+
+    <div class="home-hero-photo">
+        <img src="~/images/clinic-hero.webp" asp-append-version="true"
+             alt="Muayene odasında bir köpeği kontrol eden veteriner hekim"
+             width="1402" height="1122" fetchpriority="high" />
+    </div>
+</section>
+
+<section id="moduller" class="home-modules" aria-labelledby="modules-title">
+    <h2 id="modules-title">Planlanan modüller</h2>
+    <div class="module-grid">
+        <article class="module-card">
+            <h3>Randevu</h3>
+            <p>Evcil hayvan, hizmet ve hekim seçimiyle randevu oluşturma ve onay durumunu takip etme.</p>
+        </article>
+        <article class="module-card">
+            <h3>Evcil hayvan kaydı</h3>
+            <p>Evcil hayvanların temel bilgilerini sahipleriyle ilişkilendirerek kayıt altında tutma.</p>
+        </article>
+        <article class="module-card">
+            <h3>Sağlık geçmişi</h3>
+            <p>Evcil hayvanların aşı kayıtlarını ve geçmiş muayenelerini görüntüleme.</p>
+        </article>
+    </div>
+</section>

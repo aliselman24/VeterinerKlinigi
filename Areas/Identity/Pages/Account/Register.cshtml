@@ -1,0 +1,39 @@
+@page
+@model VeterinerKlinigi.Areas.Identity.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Hesap oluştur";
+}
+
+<section class="account-card" aria-labelledby="register-title">
+    <h1 id="register-title">Hesap oluştur</h1>
+    <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+        <div class="mb-3">
+            <label asp-for="Input.Email" class="form-label"></label>
+            <input asp-for="Input.Email" class="form-control" autocomplete="email" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Input.Password" class="form-label"></label>
+            <input asp-for="Input.Password" class="form-control" autocomplete="new-password"
+                   aria-describedby="password-rules" />
+            <p id="password-rules" class="form-text">En az 6 karakter, büyük ve küçük harf, rakam ve özel karakter kullan.</p>
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Input.ConfirmPassword" class="form-label"></label>
+            <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" />
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <button class="btn btn-primary w-100" type="submit">Hesap oluştur</button>
+    </form>
+    <p class="account-switch">Zaten hesabın var mı? <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Giriş yap</a></p>
+</section>
+
+@section Scripts {
+    <partial name="/Views/Shared/_ValidationScriptsPartial.cshtml" />
+}
