@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VeterinerKlinigi.Data;
+using VeterinerKlinigi.Infrastructure;
 using VeterinerKlinigi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +21,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<IAdminDashboardService, AdminDashboardService>();
-builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IClinicManagementService, ClinicManagementService>();
+
+builder.Services.AddControllersWithViews(options =>
+{
+    options.ModelBinderProviders.Insert(0, new FlexibleDecimalModelBinderProvider());
+});
 
 var app = builder.Build();
 

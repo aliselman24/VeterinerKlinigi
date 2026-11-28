@@ -1,0 +1,54 @@
+@model ClinicServiceFormViewModel
+@{
+    ViewData["Title"] = "Hizmet Düzenle";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Hizmet Düzenle</h1>
+        <p>Hizmet adını, süresini veya ücretini güncelleyin.</p>
+    </div>
+    <a class="btn btn-outline-primary" asp-action="Index" asp-route-clinicId="@Model.ClinicId">Listeye Dön</a>
+</div>
+
+<section class="admin-panel-card admin-form-card">
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" novalidate>
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+        <div class="mb-3">
+            <label asp-for="ClinicId" class="form-label"></label>
+            <select asp-for="ClinicId" asp-items="Model.ClinicOptions" class="form-select"></select>
+            <span asp-validation-for="ClinicId" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger small"></span>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-sm-6">
+                <label asp-for="DurationMinutes" class="form-label"></label>
+                <input asp-for="DurationMinutes" type="number" min="1" max="1440" class="form-control" />
+                <span asp-validation-for="DurationMinutes" class="text-danger small"></span>
+            </div>
+            <div class="col-sm-6">
+                <label asp-for="Fee" class="form-label"></label>
+                <input asp-for="Fee" type="number" step="0.01" min="0"
+                       value="@Model.Fee.ToString("0.##", CultureInfo.InvariantCulture)" class="form-control" />
+                <span asp-validation-for="Fee" class="text-danger small"></span>
+            </div>
+        </div>
+
+        <div class="admin-row-actions">
+            <button type="submit" class="btn btn-primary">Güncelle</button>
+            <a class="btn btn-outline-secondary" asp-action="Index" asp-route-clinicId="@Model.ClinicId">Vazgeç</a>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

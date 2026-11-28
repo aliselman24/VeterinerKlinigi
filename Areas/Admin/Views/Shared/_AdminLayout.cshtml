@@ -1,6 +1,8 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? string.Empty;
+    var isClinicSection = string.Equals(currentController, "Clinics", StringComparison.OrdinalIgnoreCase)
+        || string.Equals(currentController, "WorkingHours", StringComparison.OrdinalIgnoreCase);
 }
 
 <div class="admin-shell">
@@ -16,10 +18,18 @@
                asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
                 Genel Bakış
             </a>
-            <span class="admin-nav-link is-upcoming" aria-disabled="true">
-                Klinikler ve Hizmetler
-                <small>A07</small>
-            </span>
+            <a class="admin-nav-link @(isClinicSection ? "is-active" : "")"
+               asp-area="Admin" asp-controller="Clinics" asp-action="Index">
+                Klinikler ve Saatler
+            </a>
+            <a class="admin-nav-link @(string.Equals(currentController, "Services", StringComparison.OrdinalIgnoreCase) ? "is-active" : "")"
+               asp-area="Admin" asp-controller="Services" asp-action="Index">
+                Hizmetler
+            </a>
+            <a class="admin-nav-link @(string.Equals(currentController, "Specialties", StringComparison.OrdinalIgnoreCase) ? "is-active" : "")"
+               asp-area="Admin" asp-controller="Specialties" asp-action="Index">
+                Uzmanlık Alanları
+            </a>
             <span class="admin-nav-link is-upcoming" aria-disabled="true">
                 Veteriner Hekimler
                 <small>A08</small>
@@ -38,6 +48,20 @@
     </aside>
 
     <section class="admin-content">
+        @if (TempData["SuccessMessage"] is string successMessage && !string.IsNullOrWhiteSpace(successMessage))
+        {
+            <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+                @successMessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] is string errorMessage && !string.IsNullOrWhiteSpace(errorMessage))
+        {
+            <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                @errorMessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
+            </div>
+        }
         @RenderBody()
     </section>
 </div>

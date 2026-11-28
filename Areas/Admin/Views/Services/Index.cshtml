@@ -1,0 +1,74 @@
+@model ClinicServiceIndexViewModel
+@{
+    ViewData["Title"] = "Hizmetler";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Klinik Hizmetleri</h1>
+        <p>Muayene, aşı, cerrahi ve bakım hizmetlerinin süre ve ücret tanımları.</p>
+    </div>
+    <a class="btn btn-primary" asp-action="Create" asp-route-clinicId="@Model.SelectedClinicId">Yeni Hizmet Ekle</a>
+</div>
+
+<section class="admin-panel-card">
+    <form method="get" class="admin-filter-bar mb-3">
+        <div class="admin-filter-field">
+            <label for="clinicId" class="form-label mb-1">Kliniğe göre filtrele</label>
+            <select id="clinicId" name="clinicId" class="form-select" onchange="this.form.submit()">
+                <option value="">Tüm Klinikler</option>
+                @foreach (var option in Model.ClinicOptions)
+                {
+                    <option value="@option.Value" selected="@option.Selected">@option.Text</option>
+                }
+            </select>
+        </div>
+        @if (Model.SelectedClinicId.HasValue)
+        {
+            <a class="btn btn-outline-secondary align-self-end" asp-action="Index">Filtreyi Temizle</a>
+        }
+    </form>
+
+    @if (Model.Services.Count == 0)
+    {
+        <div class="admin-empty-state">
+            <p>Seçilen kriterlere uygun hizmet kaydı bulunmuyor.</p>
+            <a class="btn btn-primary btn-sm" asp-action="Create" asp-route-clinicId="@Model.SelectedClinicId">Hizmet Ekle</a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table admin-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Hizmet Adı</th>
+                        <th>Klinik</th>
+                        <th>Süre</th>
+                        <th>Ücret</th>
+                        <th class="text-center">Hekim</th>
+                        <th class="text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var service in Model.Services)
+                    {
+                        <tr>
+                            <td><strong>@service.Name</strong></td>
+                            <td>@service.ClinicName</td>
+                            <td>@service.DurationMinutes dk</td>
+                            <td>@service.Fee.ToString("N2", CultureInfo.GetCultureInfo("tr-TR")) TL</td>
+                            <td class="text-center">@service.AssignedVeterinarianCount</td>
+                            <td class="text-end">
+                                <div class="admin-row-actions">
+                                    <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@service.Id">Düzenle</a>
+                                    <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@service.Id">Sil</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

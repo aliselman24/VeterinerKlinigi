@@ -1,0 +1,53 @@
+@model WorkingHourFormViewModel
+@{
+    ViewData["Title"] = "Çalışma Saati Düzenle";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Çalışma Saati Düzenle</h1>
+        <p>@Model.ClinicName çalışma saatini güncelleyin.</p>
+    </div>
+    <a class="btn btn-outline-primary" asp-controller="Clinics" asp-action="Details" asp-route-id="@Model.ClinicId">Kliniğe Dön</a>
+</div>
+
+<section class="admin-panel-card admin-form-card">
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" novalidate>
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ClinicId" />
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+        <div class="mb-3">
+            <label asp-for="DayOfWeek" class="form-label"></label>
+            <select asp-for="DayOfWeek" class="form-select">
+                @foreach (var day in DayOfWeekHelper.OrderedDays)
+                {
+                    <option value="@day">@DayOfWeekHelper.GetTurkishName(day)</option>
+                }
+            </select>
+            <span asp-validation-for="DayOfWeek" class="text-danger small"></span>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-sm-6">
+                <label asp-for="OpensAt" class="form-label"></label>
+                <input asp-for="OpensAt" type="time" asp-format="{0:HH:mm}" class="form-control" />
+                <span asp-validation-for="OpensAt" class="text-danger small"></span>
+            </div>
+            <div class="col-sm-6">
+                <label asp-for="ClosesAt" class="form-label"></label>
+                <input asp-for="ClosesAt" type="time" asp-format="{0:HH:mm}" class="form-control" />
+                <span asp-validation-for="ClosesAt" class="text-danger small"></span>
+            </div>
+        </div>
+
+        <div class="admin-row-actions">
+            <button type="submit" class="btn btn-primary">Güncelle</button>
+            <a class="btn btn-outline-secondary" asp-controller="Clinics" asp-action="Details" asp-route-id="@Model.ClinicId">Vazgeç</a>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

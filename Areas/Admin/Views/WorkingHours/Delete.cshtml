@@ -1,0 +1,36 @@
+@model ClinicWorkingHourDto
+@{
+    ViewData["Title"] = "Çalışma Saati Sil";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Çalışma Saati Sil</h1>
+        <p>@Model.ClinicName için bu saat aralığını kaldırmak istediğinizden emin misiniz?</p>
+    </div>
+    <a class="btn btn-outline-primary" asp-controller="Clinics" asp-action="Details" asp-route-id="@Model.ClinicId">Kliniğe Dön</a>
+</div>
+
+<section class="admin-panel-card admin-form-card">
+    <dl class="admin-metric-list mb-4">
+        <div>
+            <dt>Klinik</dt>
+            <dd><strong>@Model.ClinicName</strong></dd>
+        </div>
+        <div>
+            <dt>Gün</dt>
+            <dd>@DayOfWeekHelper.GetTurkishName(Model.DayOfWeek)</dd>
+        </div>
+        <div>
+            <dt>Saat Aralığı</dt>
+            <dd>@Model.OpensAt.ToString("HH:mm") - @Model.ClosesAt.ToString("HH:mm")</dd>
+        </div>
+    </dl>
+
+    <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+        <div class="admin-row-actions">
+            <button type="submit" class="btn btn-danger">Evet, Sil</button>
+            <a class="btn btn-outline-secondary" asp-controller="Clinics" asp-action="Details" asp-route-id="@Model.ClinicId">Vazgeç</a>
+        </div>
+    </form>
+</section>

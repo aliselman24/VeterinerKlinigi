@@ -1,0 +1,39 @@
+@model ClinicFormViewModel
+@{
+    ViewData["Title"] = "Yeni Klinik";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Yeni Klinik Ekle</h1>
+        <p>Klinik temel bilgilerini kaydedin; ardından çalışma saatleri ve hizmetleri tanımlayın.</p>
+    </div>
+    <a class="btn btn-outline-primary" asp-action="Index">Listeye Dön</a>
+</div>
+
+<section class="admin-panel-card admin-form-card">
+    <form asp-action="Create" method="post" novalidate>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" placeholder="Örn: Sakarya Merkez Veteriner Kliniği" />
+            <span asp-validation-for="Name" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="Address" class="form-label"></label>
+            <textarea asp-for="Address" class="form-control" rows="3" placeholder="Açık adres bilgisini giriniz"></textarea>
+            <span asp-validation-for="Address" class="text-danger small"></span>
+        </div>
+
+        <div class="admin-row-actions">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">Vazgeç</a>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,44 @@
+@model ClinicDetailDto
+@{
+    ViewData["Title"] = "Klinik Sil";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Klinik Sil</h1>
+        <p>Bu işlem geri alınamaz. Bağlı hizmet veya hekim varsa silme işlemi engellenir.</p>
+    </div>
+    <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@Model.Id">Detaya Dön</a>
+</div>
+
+<section class="admin-panel-card admin-form-card">
+    <dl class="admin-metric-list mb-4">
+        <div>
+            <dt>Klinik Adı</dt>
+            <dd><strong>@Model.Name</strong></dd>
+        </div>
+        <div>
+            <dt>Adres</dt>
+            <dd>@Model.Address</dd>
+        </div>
+        <div>
+            <dt>Çalışma Saati Sayısı</dt>
+            <dd>@Model.WorkingHours.Count</dd>
+        </div>
+        <div>
+            <dt>Bağlı Hizmet Sayısı</dt>
+            <dd>@Model.Services.Count</dd>
+        </div>
+        <div>
+            <dt>Görevli Hekim Sayısı</dt>
+            <dd>@Model.VeterinarianCount</dd>
+        </div>
+    </dl>
+
+    <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+        <div class="admin-row-actions">
+            <button type="submit" class="btn btn-danger">Evet, Kliniği Sil</button>
+            <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@Model.Id">Vazgeç</a>
+        </div>
+    </form>
+</section>

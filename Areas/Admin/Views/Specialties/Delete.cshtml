@@ -1,0 +1,32 @@
+@model SpecialtyItemDto
+@{
+    ViewData["Title"] = "Uzmanlık Sil";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Uzmanlık Alanını Sil</h1>
+        <p>Bu uzmanlık alanını silmek istediğinizden emin misiniz?</p>
+    </div>
+    <a class="btn btn-outline-primary" asp-action="Index">Listeye Dön</a>
+</div>
+
+<section class="admin-panel-card admin-form-card">
+    <dl class="admin-metric-list mb-4">
+        <div>
+            <dt>Uzmanlık Adı</dt>
+            <dd><strong>@Model.Name</strong></dd>
+        </div>
+        <div>
+            <dt>Atanan Hekim Sayısı</dt>
+            <dd>@Model.VeterinarianCount</dd>
+        </div>
+    </dl>
+
+    <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+        <div class="admin-row-actions">
+            <button type="submit" class="btn btn-danger">Evet, Sil</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">Vazgeç</a>
+        </div>
+    </form>
+</section>

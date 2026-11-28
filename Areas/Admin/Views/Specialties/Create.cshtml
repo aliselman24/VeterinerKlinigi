@@ -1,0 +1,33 @@
+@model SpecialtyFormViewModel
+@{
+    ViewData["Title"] = "Yeni Uzmanlık";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Yeni Uzmanlık Alanı</h1>
+        <p>Örn: Küçük Hayvan, Cerrahi, Dermatoloji, Egzotik Hayvan.</p>
+    </div>
+    <a class="btn btn-outline-primary" asp-action="Index">Listeye Dön</a>
+</div>
+
+<section class="admin-panel-card admin-form-card">
+    <form asp-action="Create" method="post" novalidate>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+        <div class="mb-4">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" placeholder="Örn: Küçük Hayvan Cerrahisi" />
+            <span asp-validation-for="Name" class="text-danger small"></span>
+        </div>
+
+        <div class="admin-row-actions">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">Vazgeç</a>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

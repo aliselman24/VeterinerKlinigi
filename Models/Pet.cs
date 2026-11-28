@@ -23,7 +23,7 @@ public class Pet
 
     public DateOnly BirthDate { get; set; }
 
-    [Range(typeof(decimal), "0.001", "99999.999")]
+    [Range(typeof(decimal), "0.001", "99999.999", ParseLimitsInInvariantCulture = true)]
     public decimal WeightKg { get; set; }
 
     public ICollection<VaccinationRecord> VaccinationRecords { get; } = new List<VaccinationRecord>();

@@ -1,0 +1,51 @@
+@model IReadOnlyList<SpecialtyItemDto>
+@{
+    ViewData["Title"] = "Uzmanlık Alanları";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Uzmanlık Alanları</h1>
+        <p>Veteriner hekimlere atanacak uzmanlık kategorilerini yönetin.</p>
+    </div>
+    <a class="btn btn-primary" asp-action="Create">Yeni Uzmanlık Ekle</a>
+</div>
+
+<section class="admin-panel-card">
+    @if (Model.Count == 0)
+    {
+        <div class="admin-empty-state">
+            <p>Henüz uzmanlık alanı tanımlanmadı.</p>
+            <a class="btn btn-primary btn-sm" asp-action="Create">İlk uzmanlığı ekle</a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table admin-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Uzmanlık Adı</th>
+                        <th class="text-center">Atanan Hekim</th>
+                        <th class="text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var specialty in Model)
+                    {
+                        <tr>
+                            <td><strong>@specialty.Name</strong></td>
+                            <td class="text-center">@specialty.VeterinarianCount</td>
+                            <td class="text-end">
+                                <div class="admin-row-actions">
+                                    <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@specialty.Id">Düzenle</a>
+                                    <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@specialty.Id">Sil</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

@@ -14,7 +14,7 @@ public class ClinicService
     [Range(1, 1440)]
     public int DurationMinutes { get; set; }
 
-    [Range(typeof(decimal), "0", "99999999.99")]
+    [Range(typeof(decimal), "0", "99999999.99", ParseLimitsInInvariantCulture = true)]
     public decimal Fee { get; set; }
 
     public ICollection<VeterinarianService> VeterinarianServices { get; } = new List<VeterinarianService>();
