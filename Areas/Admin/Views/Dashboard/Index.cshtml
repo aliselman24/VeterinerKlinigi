@@ -1,0 +1,136 @@
+@model AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Paneli";
+    var generatedAtLocal = Model.Summary.GeneratedAtUtc.ToLocalTime().ToString("dd.MM.yyyy HH:mm");
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Genel Bakış</h1>
+        <p>Sistemin güncel klinik, kullanıcı ve randevu istatistikleri.</p>
+    </div>
+    <div class="admin-timestamp">
+        Son güncelleme: <strong>@generatedAtLocal</strong>
+    </div>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        @Model.ErrorMessage
+    </div>
+}
+
+<div class="admin-stat-grid" aria-label="Temel klinik istatistikleri">
+    <article class="admin-stat-card">
+        <span class="admin-stat-label">Klinikler</span>
+        <strong class="admin-stat-value">@Model.Summary.ClinicCount</strong>
+        <span class="admin-stat-hint">Tanımlı veteriner kliniği</span>
+    </article>
+
+    <article class="admin-stat-card">
+        <span class="admin-stat-label">Hizmetler</span>
+        <strong class="admin-stat-value">@Model.Summary.ServiceCount</strong>
+        <span class="admin-stat-hint">Süre ve ücret tanımlı işlem</span>
+    </article>
+
+    <article class="admin-stat-card">
+        <span class="admin-stat-label">Uzmanlıklar</span>
+        <strong class="admin-stat-value">@Model.Summary.SpecialtyCount</strong>
+        <span class="admin-stat-hint">Hekim uzmanlık alanı</span>
+    </article>
+
+    <article class="admin-stat-card">
+        <span class="admin-stat-label">Veterinerler</span>
+        <strong class="admin-stat-value">@Model.Summary.VeterinarianCount</strong>
+        <span class="admin-stat-hint">Klinik kadrosundaki hekim</span>
+    </article>
+
+    <article class="admin-stat-card">
+        <span class="admin-stat-label">Evcil Hayvanlar</span>
+        <strong class="admin-stat-value">@Model.Summary.PetCount</strong>
+        <span class="admin-stat-hint">Kayıtlı hasta profili</span>
+    </article>
+
+    <article class="admin-stat-card">
+        <span class="admin-stat-label">Aşı Kayıtları</span>
+        <strong class="admin-stat-value">@Model.Summary.VaccinationRecordCount</strong>
+        <span class="admin-stat-hint">Takip edilen aşı dozu</span>
+    </article>
+</div>
+
+<div class="admin-detail-grid">
+    <section class="admin-panel-card">
+        <div class="admin-card-head">
+            <h2>Randevu Durumları</h2>
+            <span class="admin-pill">Toplam @Model.TotalAppointmentCount</span>
+        </div>
+
+        <dl class="admin-metric-list">
+            <div>
+                <dt>Onay Bekleyen</dt>
+                <dd><strong>@Model.Summary.PendingAppointmentCount</strong></dd>
+            </div>
+            <div>
+                <dt>Onaylanan</dt>
+                <dd><strong>@Model.Summary.ApprovedAppointmentCount</strong></dd>
+            </div>
+            <div>
+                <dt>Tamamlanan</dt>
+                <dd><strong>@Model.Summary.CompletedAppointmentCount</strong></dd>
+            </div>
+            <div>
+                <dt>Reddedilen</dt>
+                <dd><strong>@Model.Summary.RejectedAppointmentCount</strong></dd>
+            </div>
+            <div>
+                <dt>Yaklaşan Aktif Randevular</dt>
+                <dd><strong>@Model.Summary.UpcomingAppointmentCount</strong></dd>
+            </div>
+        </dl>
+    </section>
+
+    <section class="admin-panel-card">
+        <div class="admin-card-head">
+            <h2>Kullanıcı ve Rol Dağılımı</h2>
+            <span class="admin-pill">Toplam @Model.Summary.TotalUserCount</span>
+        </div>
+
+        <dl class="admin-metric-list">
+            <div>
+                <dt>@RoleNames.Admin</dt>
+                <dd><strong>@Model.Summary.AdminUserCount</strong></dd>
+            </div>
+            <div>
+                <dt>@RoleNames.Veterinarian</dt>
+                <dd><strong>@Model.Summary.VeterinarianUserCount</strong></dd>
+            </div>
+            <div>
+                <dt>@RoleNames.Member</dt>
+                <dd><strong>@Model.Summary.MemberUserCount</strong></dd>
+            </div>
+        </dl>
+    </section>
+</div>
+
+<section class="admin-panel-card admin-roadmap-card">
+    <div class="admin-card-head">
+        <h2>Sıradaki Yönetim Modülleri</h2>
+        <span class="admin-pill">A07 → A11</span>
+    </div>
+
+    <div class="admin-module-grid">
+        <article class="admin-module-item">
+            <h3>Klinik ve Hizmet Yönetimi</h3>
+            <p>Çoklu klinik kayıtları, çalışma saatleri, uzmanlık alanları ve hizmet ücret/süre CRUD ekranları (A07).</p>
+        </article>
+        <article class="admin-module-item">
+            <h3>Veteriner Kadrosu ve Müsaitlik</h3>
+            <p>Veteriner hesap eşleme, uzmanlık-hizmet atama ve haftalık/tarihli müsaitlik saatleri (A08).</p>
+        </article>
+        <article class="admin-module-item">
+            <h3>Randevu Onay Merkezi</h3>
+            <p>Bekleyen randevuları inceleme, çakışma doğrulama ve onay/red karar akışları (A10–A11).</p>
+        </article>
+    </div>
+</section>
